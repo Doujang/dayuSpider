@@ -2,16 +2,21 @@
 
 from pymysql import *
 
+'''
+大鱼号去重更新入总库，主要用了集合的去重功能，效率比较低，后改用redis去重，效率高得一逼！
+'''
+
 def new_user():
-    db = connect(host="localhost", port=3306, db="spider", user="root", password="123456", charset="utf8")
+    db = connect(host="localhost", port=3306, db="spider", user="root", password="secret", charset="utf8")
     conn = db.cursor()
     try:
-        sql = 'SELECT mid FROM Newdayu25'
+        sql = 'SELECT mid FROM Newdayu2'
         conn.execute(sql)
         data = conn.fetchall()
         db.commit()
     except:
         db.rollback()
+        
     user_list = []
     for i in range(len(data)):
         mid = data[i][0]
@@ -43,7 +48,7 @@ def update_user(user_list_1):
     new_user_list.sort(key=user_list2.index)
     print(len(new_user_list))
 
-    for i in range(418835,len(new_user_list)):
+    for i in range(10000,len(new_user_list)):
         print(i)
         mid = new_user_list[i]
         sql = """insert into dayu_test(mid) value(%s)"""
@@ -53,17 +58,17 @@ def update_user(user_list_1):
         except:
             db.rollback()
 
-
 if __name__ == "__main__":
-    db = connect(host="localhost", port=3306, db="spider", user="root", password="123456", charset="utf8")
+    db = connect(host="localhost", port=3306, db="spider", user="root", password="secert", charset="utf8")
     conn = db.cursor()
     try:
-        sql = 'SELECT mid FROM dayu_test'
+        sql = 'SELECT mid FROM dayu'
         MainUrl = conn.execute(sql)
         data = conn.fetchall()
         db.commit()
     except:
         db.rollback()
+        
     user_list = []
     #print(len(data))
     for i in range(len(data)):
