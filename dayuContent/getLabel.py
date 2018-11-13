@@ -6,6 +6,10 @@ import requests
 import time
 import json
 
+'''
+读取Excel文档，抓取每篇文章的命中标签、阅读数以及评论数，并更新入Excel
+'''
+
 #读取Excel文件
 def readExcel(filename):
     # 打开Excel文件
@@ -13,7 +17,7 @@ def readExcel(filename):
     # 读取第三张表，下标为2，想读取其它表，改变下标即可
     sheet = wb['UC头条']
     # cell_value为第一行第一列单元格的内容，下标为（0,0），想读取其它单元格，改变下标即可
-    for i in range(408,413):
+    for i in range(4,413):
         print(i)
         try:
             url_value = sheet.cell(i,5).value
@@ -50,7 +54,7 @@ def loadPage(mid,aid):
         'Accept-Language': 'zh-CN,zh;q=0.9',
         #'Cookie':'cna=ssFmE2lTTh8CAXeDsgjtj/mi; isg=BHZ2ncjXMY0PIcVteei_Cq3Qx6y4P7u9nkIVH-Bf7NnQIxW9SCVZ48LSP7_qi7Lp'
         }
-    for i in range(1,50):
+    for i in range(1,50): #翻到第50页即可
         url = 'http://ff.dayu.com/contents/author/' + str(mid) + '?biz_id=1002&_size=8&_page=' + str(i)
         print(url)
         try:
