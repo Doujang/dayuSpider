@@ -8,8 +8,12 @@ import time
 import json
 from pymysql import *
 
+'''
+通过搜索的方式获取大鱼号号主的唯一标识mid
+'''
+
 def getMid(iid,user_name):
-    ua = UserAgent()
+    #ua = UserAgent()
     headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
                'Host':'zzd.sm.cn',
                'Connection':'keep-alive',
@@ -44,12 +48,11 @@ def getMid(iid,user_name):
 def updateMid(mid,n):
 
     params = [mid,n]
-    #db = connect(host="localhost", port=3306, db="spider", user="root", password="123456", charset="utf8")
-    db = connect(host="192.168.1.100", port=3306, db="Spider", user="root", password="zy79117911#", charset="utf8")
+    db = connect(host="localhost", port=3306, db="spider", user="root", password="secret", charset="utf8")
     conn = db.cursor()
 
     try:
-        sql = """update Newdayu23 set mid=%s WHERE id=%s"""
+        sql = """update Newdayu set mid=%s WHERE id=%s"""
         print('ok!!!')
         conn.execute(sql,params)
         db.commit()
@@ -58,19 +61,18 @@ def updateMid(mid,n):
     db.close()
 
 if __name__ == "__main__":
-    # db = connect(host="localhost", port=3306, db="spider", user="root", password="123456", charset="utf8")
-    db = connect(host="192.168.1.100", port=3306, db="Spider", user="root", password="zy79117911#", charset="utf8")
+    db = connect(host="localhost", port=3306, db="spider", user="root", password="secret", charset="utf8")
     cursor = db.cursor()
 
     try:
-        sql = 'SELECT id,userName FROM Newdayu23'
+        sql = 'SELECT id,userName FROM Newdayu'
         MainUrl = cursor.execute(sql)
         data = cursor.fetchall()
         db.commit()
     except:
         db.rollback()
 
-    for i in range(70124,len(data)):
+    for i in range(len(data)):
         id = data[i][0]
         user_name = data[i][1]
         #mid = data[i][2]
