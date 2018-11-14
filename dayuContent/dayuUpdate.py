@@ -357,7 +357,7 @@ def getLabel(id):
     return label
 
 if __name__ == "__main__":
-    mongoUri = 'mongodb://mongouser:zy79117911#@193.112.155.121:3717/admin'
+    mongoUri = 'mongodb://mongouser:password@ip:port/admin'
     client = pymongo.MongoClient(mongoUri)
     db = client.Dayu
     collection = db.dayuIncrement
