@@ -97,7 +97,7 @@ def getId(id,url):
     savePage(id,items_list)
 
 def savePage(id,items):
-    sql = """update dayuPage31 set label=%s,total_read_count=%s,internal_visit_count=%s,external_visit_count=%s,comment_count=%s,share_count=%s,impression_count=%s WHERE id=%s"""
+    sql = """update dayuPage set label=%s,total_read_count=%s,internal_visit_count=%s,external_visit_count=%s,comment_count=%s,share_count=%s,impression_count=%s WHERE id=%s"""
     try:
         cursor.execute(sql, (
             items["label"], items["total_read_count"], items["internal_visit_count"],
@@ -134,17 +134,17 @@ def getLabel(id):
     return label
 
 if __name__ == "__main__":
-    db = connect(host="192.168.1.100", port=3306, db="Spider", user="root", password="zy79117911#", charset="utf8")
+    db = connect(host="secret", port=3306, db="Spider", user="root", password="secret", charset="utf8")
     cursor = db.cursor()
     try:
-        sql = """select id,source_url from dayuPage31"""
+        sql = """select id,source_url from dayuPage"""
         cursor.execute(sql)
         data = cursor.fetchall()
         db.commit()
     except:
         db.rollback()
 
-    for i in range(95128,len(data)):
+    for i in range(len(data)):
         id = data[i][0]
         print(id)
         url = data[i][1]
