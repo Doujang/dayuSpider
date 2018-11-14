@@ -7,6 +7,10 @@ import json
 from datetime import datetime
 import time
 
+'''
+大鱼号历史文章内容信息抓取，包括文章链接、文章标题、发布时间、文章分类、文章内容、文章作者、标签、阅读数、评论数、转发数、推荐数等信息，并存入MySQL
+'''
+
 def loadPage(id,mid):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
@@ -25,7 +29,7 @@ def loadPage(id,mid):
         print(url)
         try:
             body = requests.get(url,headers=headers,timeout=5,verify=False).text
-            time.sleep(0.2)
+            time.sleep(0.1)
             print(body)
             urllib3.disable_warnings()
             response = json.loads(body)
@@ -33,7 +37,7 @@ def loadPage(id,mid):
         except:
             print('something is wrong!!!')
             error_time = int(time.time())
-            with open('error_url121.txt', 'a') as e:
+            with open('error_url.txt', 'a') as e:
                 e.write(mid + '\n')
                 e.write(str(error_time) + '\n')
                 e.write(url + '\n')
@@ -83,7 +87,7 @@ def parsePage(data):
         time_stamp = datetime.timestamp(date_time)
         time_stamp = int(time_stamp)
         print(time_stamp)
-        t = 1483200000
+        t = 1483200000 #抓取2017年之后的文章内容
         if time_stamp < t:
             return
         else:
@@ -98,7 +102,7 @@ def parsePage(data):
         print(category)
 
         item_list = loadLink(page_url)
-        time.sleep(0.2)
+        time.sleep(0.1)
 
         #文章内容
         try:
@@ -221,7 +225,7 @@ def loadLink(source_url):
     except:
         print('something is wrong!!!')
         error_time = int(time.time())
-        with open('error_url121.txt', 'a') as e:
+        with open('error_url.txt', 'a') as e:
             e.write(str(error_time) + '\n')
             e.write(source_url + '\n')
         print(source_url)
@@ -233,7 +237,6 @@ def loadLink(source_url):
         author = str(author)
     except:
         author = '[]'
-
 
     # 文章内容
     try:
@@ -358,6 +361,6 @@ if __name__ == "__main__":
         mid = data[i][1]
         print(id,mid)
         loadPage(id,mid)
-        time.sleep(0.2)
+        time.sleep(0.1)
 
     db.close()
