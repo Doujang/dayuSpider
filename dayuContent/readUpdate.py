@@ -7,6 +7,11 @@ import pymongo
 import redis
 from threading import Thread
 
+'''
+实时更新MongoDB里面最近三天的文章阅读数、评论数、转发数等信息
+利用多线程实现每小时更新一次
+'''
+
 def loadRead(cid):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
