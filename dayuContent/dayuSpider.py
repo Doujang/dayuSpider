@@ -186,7 +186,7 @@ def parsePage(data):
         savePage(items)
 
 def savePage(items):
-    sql = """insert into dayuPage121(source_url,category,title,author,datetime,keywords,label,total_read_count,internal_visit_count,external_visit_count,comment_count,share_count,impression_count,article_content) \
+    sql = """insert into dayuPage(source_url,category,title,author,datetime,keywords,label,total_read_count,internal_visit_count,external_visit_count,comment_count,share_count,impression_count,article_content) \
         values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
     try:
         cursor.execute(sql, (
@@ -341,11 +341,11 @@ def getLabel(id):
     return label
 
 if __name__ == "__main__":
-    db = connect(host="192.168.1.100", port=3306, db="Spider", user="root", password="zy79117911#", charset="utf8")
+    db = connect(host="secret", port=3306, db="Spider", user="root", password="secret", charset="utf8")
     cursor = db.cursor()
 
     try:
-        sql = """select id,mid from dayu121"""
+        sql = """select id,mid from dayu"""
         cursor.execute(sql)
         data = cursor.fetchall()
         db.commit()
