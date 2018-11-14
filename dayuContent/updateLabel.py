@@ -6,6 +6,10 @@ import re
 import requests
 import json
 
+'''
+由于之前抓取文章时，没有发现抓取标签这个接口，因此，现在对之前已经抓下来的文章进行标签的抓取并同时更新阅读数、评论数、转发数、推荐数等信息
+'''
+
 def getId(id,url):
     pattern = re.compile('wm_cid=[^\s]*')
     soup = re.findall(pattern,url)
