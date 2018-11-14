@@ -7,6 +7,11 @@ import time
 import pymongo
 import redis
 
+'''
+大鱼号号主文章增量抓取：监控40多万号主的每日增量
+利用Redis+MongoDB实现分布式爬取，并实现去重功能
+'''
+
 def loadPage(end_time,mid):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36',
