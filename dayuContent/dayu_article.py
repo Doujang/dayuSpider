@@ -27,7 +27,6 @@ class Dayu(object):
 
         resp = requests.get(source_url,headers=headers,timeout=5,verify=False)
         response = resp.json()['data']
-        print(response)
 
         #文章内容
         content = response['body']['text']
