@@ -66,7 +66,6 @@ class Dayu(object):
         #文章频道id
         channel_id = '777'
 
-        print('url: ', url)
         print('author: ', author)
         print('avatar: ', avatar)
         print('publish_time: ', publish_time)
