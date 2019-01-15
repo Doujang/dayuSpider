@@ -10,7 +10,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class Dayu(object):
     def __init__(self):
-        self.redis_cli = redis.Redis(host='192.168.0.21', port=6379, db=1, password='123456', charset='utf8', decode_responses=True)
+        self.redis_cli = redis.Redis(host='xxx', port=6379, db=1, password='xxx', charset='utf8', decode_responses=True)
 
     def get_dayu_article(self,aid):
         source_url = 'https://ff.dayu.com/contents/origin/{}?biz_id=1002&_fetch_author=1&_fetch_incrs=1'.format(aid)
