@@ -66,7 +66,6 @@ class Dayu(object):
         #文章频道id
         channel_id = '777'
 
-        print('platform: ', platform)
         print('channel_id: ', channel_id)
 
 if __name__ == "__main__":
