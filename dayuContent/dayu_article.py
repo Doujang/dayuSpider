@@ -64,9 +64,8 @@ class Dayu(object):
         #文章所在平台
         platform = 'dayu'
         #文章频道id
-        channel_id = ''
+        channel_id = '777'
 
-        print('abstract: ', abstract)
         print('img_list: ', img_list)
         print('title: ', title)
         print('url: ', url)
