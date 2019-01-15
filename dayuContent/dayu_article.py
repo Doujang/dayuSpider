@@ -66,7 +66,6 @@ class Dayu(object):
         #文章频道id
         channel_id = '777'
 
-        print('publish_time: ', publish_time)
         print('read_count: ', read_count)
         print('comment_count: ', comment_count)
         print('platform: ', platform)
