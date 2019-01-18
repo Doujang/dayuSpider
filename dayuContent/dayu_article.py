@@ -3,7 +3,10 @@
 import requests
 import json
 import redis
+import time
+import hashlib
 from datetime import datetime
+from threading import Thread
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 #禁用安全请求警告
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -12,7 +15,8 @@ class Dayu(object):
     def __init__(self):
         self.redis_cli = redis.Redis(host='xxx', port=6379, db=1, password='xxx', charset='utf8', decode_responses=True)
 
-    def get_dayu_article(self,aid):
+    def get_dayu_article(self,item):
+        aid = item['article_id']
         source_url = 'https://ff.dayu.com/contents/origin/{}?biz_id=1002&_fetch_author=1&_fetch_incrs=1'.format(aid)
         headers = {
             'Host': 'ff.dayu.com',
@@ -38,10 +42,10 @@ class Dayu(object):
             img2 = '<img src={}>'.format(inner_img['url'])
             content = content.replace(img,img2)
         #文章摘要
-        abstract = response['sub_title']
+        describe = response['sub_title']
         #文章图片
         cover = [response['cover_url']]
-        img_list = json.dumps(cover)
+        img_url = json.dumps(cover)
         #文章标题
         title = response['title']
         #文章URL
@@ -64,9 +68,75 @@ class Dayu(object):
         #文章所在平台
         platform = 'dayu'
         #文章频道id
-        channel_id = '777'
+        channel_id = item['channel_id']
+
+        #当前请求Unix时间戳
+        mt = int(time.time())
+        #API签名字符串
+        para = 'xxx' + 'xxx.com' + str(mt)
+        sign = hashlib.md5(para.encode(encoding='UTF-8')).hexdigest()
+        # 媒体ID(即用户ID)
+        mid = 0
+        #文章来源
+        spider = '淘金阁'
+        source = 'UC头条'
+
+        print('content: ', content)
+        print('abstract: ', describe)
+        print('img_url: ', img_url)
+        print('title: ', title)
+        print('url: ', url)
+        print('author: ', author)
+        print('avatar: ', avatar)
+        print('publish_time: ', publish_time)
+        print('read_count: ', read_count)
+        print('comment_count: ', comment_count)
+        print('platform: ', platform)
+        print('channel_id: ', channel_id)
+
+        items = {
+            'mt': mt,
+            'sign': sign,
+            'mid': mid,
+            'channel_id': channel_id,
+            'url': url,
+            'title': title,
+            'img_url': img_url,
+            'author': author,
+            'author_logo': avatar,
+            'spider': spider,
+            'source': source,
+            'describe': describe,
+            'read_count': read_count,
+            'comment_count': comment_count,
+            'publish_time': publish_time,
+            'content': content,
+        }
+
+        if len(content) > 10:
+            #文章信息存储
+            try:
+                url = 'http://xxx/spider/toutiao'
+                requests.post(url, data=items)
+            except Exception as e:
+                print('insert wrong!!!!', e)
+
+    def run(self):
+        while True:
+            data = self.redis_cli.lpop('spider_tjg_dayu_article')
+            print(type(data), data)
+            if data == None:
+                time.sleep(600)
+                continue
+            data = eval(data)  # str转成dict
+            try:
+                self.get_dayu_article(data)
+            except Exception as e:
+                print('something is wrong!!!',e)
+
 
 if __name__ == "__main__":
-    d = Dayu()
-    aid = '3cdeb1fb412f467383c0bc530b570261'
-    d.get_dayu_article(aid)
+    for i in range(5):
+        k = Kuaibao()
+        work_thread = Thread(target=k.run)
+        work_thread.start()
