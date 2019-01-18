@@ -137,6 +137,6 @@ class Dayu(object):
 
 if __name__ == "__main__":
     for i in range(5):
-        k = Kuaibao()
-        work_thread = Thread(target=k.run)
+        d = Dayu()
+        work_thread = Thread(target=d.run)
         work_thread.start()
