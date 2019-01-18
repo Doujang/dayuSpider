@@ -11,6 +11,8 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 #禁用安全请求警告
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+'''大鱼号文章内容抓取'''
+
 class Dayu(object):
     def __init__(self):
         self.redis_cli = redis.Redis(host='xxx', port=6379, db=1, password='xxx', charset='utf8', decode_responses=True)
@@ -116,7 +118,7 @@ class Dayu(object):
         if len(content) > 10:
             #文章信息存储
             try:
-                url = 'http://xxx/spider/toutiao'
+                url = 'http://xxx'
                 requests.post(url, data=items)
             except Exception as e:
                 print('insert wrong!!!!', e)
