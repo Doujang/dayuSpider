@@ -11,11 +11,11 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 #禁用安全请求警告
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-'''大鱼号文章内容抓取'''
+'''大鱼号文章内容、评论抓取'''
 
 class Dayu(object):
     def __init__(self):
-        self.redis_cli = redis.Redis(host='xxx', port=6379, db=1, password='xxx', charset='utf8', decode_responses=True)
+        self.redis_cli = redis.Redis(host='xxx', port=6379, db=0, password='xxx', charset='utf8', decode_responses=True)
 
     def get_dayu_article(self,item):
         aid = item['article_id']
@@ -152,7 +152,7 @@ class Dayu(object):
             # 当前请求Unix时间戳
             mt = int(time.time())
             # API签名字符串
-            para = 'b#28ac3c1abc' + 'juejinchain.com' + str(mt)
+            para = 'xxx' + 'xxx.com' + str(mt)
             sign = hashlib.md5(para.encode(encoding='UTF-8')).hexdigest()
             # 评论用户名称
             user_name = data['user']['nickname']
