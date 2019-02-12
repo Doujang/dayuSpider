@@ -14,9 +14,9 @@ class Comment(object):
     def get_dayu_comment(self, xss_item_id, url):
         time_stamp = int(time.time() * 1000)
         param_data = {
-            'uc_param_str': 'dnnivebichfrmintcpgieiwidsudpf',
+            'uc_param_str': 'dnnivebichfrmidgddwntcpgieiwidsudpf',
             'app': 'ucnews-iflow',
-            'sn': 16061024813939719977,
+            'sn': 16061024833939719977,
             'count': 100,
             'ts': -1,
             'hotValue': -1,
@@ -35,34 +35,34 @@ class Comment(object):
             'Accept-Encoding': 'gzip,deflate',
             'Accept-Language': 'zh-CN,en-US;q=0.8',
             'X-Requested-With': 'com.uc.infoflow',
-            'Cookie': 'sn=16061024813939719977; _uc_pramas=%7B%22nt%22%3A%222%22%2C%22dn%22%3A%2224008021916-db0ded79%22%2C%22fr%22%3A%22android%22%2C%22cp%22%3A%22isp%3A%E7%A7%BB%E5%8A%A8%3Bprov%3A%E5%B9%BF%E4%B8%9C%3Bcity%3A%E6%B7%B1%E5%9C%B3%3Bna%3A%E4%B8%AD%E5%9B%BD%3Bcc%3ACN%3Bac%3A%22%2C%22ve%22%3A%223.9.6.400%22%7D'
+            'Cookie': 'sn=16061024813944719977; _uc_pramas=%7B%22nt%22%3A%222%22%2C%22dn%22%3A%2224008021916-db0ded79%22%2C%22fr%22%3A%22android%22%2C%22cp%22%3A%22isp%3A%E7%A7%BB%E5%8A%A8%3Bprov%3A%E5%B9%BF%E4%B8%9C%3Bcity%3A%E6%B7%B1%E5%9C%B3%3Bna%3A%E4%B8%AD%E5%9B%BD%3Bcc%3ACN%3Bac%3A%22%2C%22ve%22%3A%223.9.6.400%22%7D'
         }
         resp = requests.get(source_url, headers=headers, timeout=5).json()
         comments = resp['data']['comments']
         comments_map = resp['data']['comments_map']
         for comment in comments:
             data = comments_map[comment]
-            # 当前请求Unix时间戳
+            #当前请求Unix时间戳
             mt = int(time.time())
-            # API签名字符串
+            #API签名字符串
             para = 'xxx' + 'xxx.com' + str(mt)
             sign = hashlib.md5(para.encode(encoding='UTF-8')).hexdigest()
-            # 评论用户名称
+            #评论用户名称
             user_name = data['user']['nickname']
-            # 评论用户头像链接
+            #评论用户头像链接
             user_img_url = data['user']['faceimg']
-            # 评论内容text
+            #评论内容text
             text = data['content']
-            # 评论时间
+            #评论时间
             create_time = data['timeShow']
             create_time = int(create_time / 1000)
-            # 评论内容点赞数
+            #评论内容点赞数
             digg_count = data['up_cnt']
-            # 评论回复数
+            #评论回复数
             reply_comment = data['children']
             reply_count = len(reply_comment)
 
-            # 获取回复comment
+            #获取回复comment 二级评论
             reply_list = []
             if reply_count > 0:
                 for reply in reply_comment:
