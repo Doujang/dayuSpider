@@ -11,7 +11,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 #禁用安全请求警告
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-'''大鱼号文章内容、评论抓取'''
+'''大鱼号文章内容、评论内容抓取'''
 
 class Dayu(object):
     def __init__(self):
@@ -196,7 +196,6 @@ class Dayu(object):
                     reply_list.append(items)
 
             reply_list = json.dumps(reply_list)
-            print('reply_list: ', reply_list)
 
             items = {
                 'mt': mt,
@@ -210,32 +209,27 @@ class Dayu(object):
                 'comment_time': create_time,
                 'reply_list': reply_list,
             }
-            print(items)
-
+            
             # 文章评论信息存储
             try:
                 comment_test_url = 'xxx'
                 resp = requests.post(comment_test_url, data=items)
-                print(resp.text)
                 comment_product_url = 'xxx'
                 resp2 = requests.post(comment_product_url, data=items)
-                print(resp2.text)
             except Exception as e:
                 print('insert db wrong!!!!', e)
 
     def run(self):
         while True:
             data = self.redis_cli.lpop('spider_tjg_dayu_article')
-            print(type(data), data)
             if data == None:
                 time.sleep(600)
                 continue
-            data = eval(data)  # str转成dict
+            data = eval(data)  #str转成dict
             try:
                 self.get_dayu_article(data)
             except Exception as e:
                 print('something is wrong!!!',e)
-
 
 if __name__ == "__main__":
     for i in range(5):
