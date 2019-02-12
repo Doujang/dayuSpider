@@ -83,19 +83,6 @@ class Dayu(object):
         spider = '淘金阁'
         source = 'UC头条'
 
-        print('content: ', content)
-        print('abstract: ', describe)
-        print('img_url: ', img_url)
-        print('title: ', title)
-        print('url: ', url)
-        print('author: ', author)
-        print('avatar: ', avatar)
-        print('publish_time: ', publish_time)
-        print('read_count: ', read_count)
-        print('comment_count: ', comment_count)
-        print('platform: ', platform)
-        print('channel_id: ', channel_id)
-
         items = {
             'mt': mt,
             'sign': sign,
