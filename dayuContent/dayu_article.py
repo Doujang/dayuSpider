@@ -214,10 +214,10 @@ class Dayu(object):
 
             # 文章评论信息存储
             try:
-                comment_test_url = 'http://dev.api.juejinchain.cn/index/spider/toutiao_comment'
+                comment_test_url = 'xxx'
                 resp = requests.post(comment_test_url, data=items)
                 print(resp.text)
-                comment_product_url = 'http://api.juejinchain.com/index/spider/toutiao_comment'
+                comment_product_url = 'xxx'
                 resp2 = requests.post(comment_product_url, data=items)
                 print(resp2.text)
             except Exception as e:
