@@ -89,7 +89,6 @@ class Comment(object):
                     reply_list.append(items)
 
             reply_list = json.dumps(reply_list)
-            print('reply_list: ', reply_list)
 
             items = {
                 'mt': mt,
@@ -103,10 +102,9 @@ class Comment(object):
                 'comment_time': create_time,
                 'reply_list': reply_list,
             }
-            print(items)
 
 if __name__ == "__main__":
     c = Comment()
     xss_item_id = 5313168751462901776
-    url = ''
+    url = 'xxx'
     c.get_dayu_comment(xss_item_id, url)
