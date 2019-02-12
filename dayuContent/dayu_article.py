@@ -121,9 +121,9 @@ class Dayu(object):
     def get_dayu_comment(self, xss_item_id, url):
         time_stamp = int(time.time() * 1000)
         param_data = {
-            'uc_param_str': 'dnnivebichfrmintcpgieiwidsudpf',
+            'uc_param_str': 'dnnivebichfrmintsacpgieiwidsudpf',
             'app': 'ucnews-iflow',
-            'sn': 16061024813939719977,
+            'sn': 160610242214813939719977,
             'count': 100,
             'ts': -1,
             'hotValue': -1,
