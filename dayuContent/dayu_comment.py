@@ -6,6 +6,10 @@ import time
 import hashlib
 from urllib.parse import urlencode
 
+'''
+大鱼号文章评论内容抓取
+'''
+
 class Comment(object):
     def get_dayu_comment(self, xss_item_id, url):
         time_stamp = int(time.time() * 1000)
