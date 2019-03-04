@@ -322,11 +322,9 @@ def getLabel(id):
     try:
         body = requests.get(url, headers=headers, timeout=5).text
         time.sleep(0.1)
-        print(body)
         soup = json.loads(body)
         label = soup['data']['items'][id]['tags']
         label = str(label)
-        print(label)
     except:
         label = '[]'
 
@@ -348,7 +346,6 @@ if __name__ == "__main__":
         id = data[i][0]
         id = str(id)
         mid = data[i][1]
-        print(id,mid)
         loadPage(id,mid)
         time.sleep(0.1)
 
