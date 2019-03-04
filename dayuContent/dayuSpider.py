@@ -26,11 +26,9 @@ def loadPage(id,mid):
     n = 1
     while True:
         url = 'http://ff.dayu.com/contents/author/' + mid + '?biz_id=1002&_size=8&_page=' + str(n)
-        print(url)
         try:
             body = requests.get(url,headers=headers,timeout=5,verify=False).text
             time.sleep(0.1)
-            print(body)
             urllib3.disable_warnings()
             response = json.loads(body)
             data = response['data']
@@ -41,7 +39,6 @@ def loadPage(id,mid):
                 e.write(mid + '\n')
                 e.write(str(error_time) + '\n')
                 e.write(url + '\n')
-            print(url)
             return
 
         if len(data)==0:
@@ -53,7 +50,6 @@ def loadPage(id,mid):
         parsePage(data)
 
 def parsePage(data):
-
     for i in range(len(data)):
         #文章内容链接
         content_id = data[i]['content_id']
@@ -64,13 +60,10 @@ def parsePage(data):
         biz_id = data[i]['biz_id']
         biz_id = str(biz_id)
         page_url = 'http://ff.dayu.com/contents/' + content_id + '?biz_id=' + biz_id + '&_fetch_author=1&_fetch_incrs=1'
-        print(page_url)
 
         #文章标题
         title = data[i]['title']
         title = str(title)
-        print(title)
-
         #文章发布时间
         dt = data[i]['published_at']
         y = dt[:10]
@@ -81,12 +74,8 @@ def parsePage(data):
         t = str(t)
         print(t)
         date_time = datetime.strptime(t, "%Y-%m-%d %H:%M:%S")
-        #date_time = datetime.strftime(t,'%Y-%m-%d %H:%M:%S')
-        print(date_time)
-
         time_stamp = datetime.timestamp(date_time)
         time_stamp = int(time_stamp)
-        print(time_stamp)
         t = 1483200000 #抓取2017年之后的文章内容
         if time_stamp < t:
             return
