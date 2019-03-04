@@ -71,7 +71,6 @@ class Dayu(object):
         platform = 'dayu'
         #文章频道id
         channel_id = item['channel_id']
-
         #当前请求Unix时间戳
         mt = int(time.time())
         #API签名字符串
@@ -105,8 +104,10 @@ class Dayu(object):
         if len(content) > 10:
             #文章信息存储
             try:
-                url = 'http://xxx'
-                requests.post(url, data=items)
+                test_url = 'http://xxx'
+                requests.post(test_url, data=items)
+                product_url = 'http://xxx'
+                requests.post(product_url, data=items)
             except Exception as e:
                 print('insert wrong!!!!', e)
                 
@@ -213,9 +214,9 @@ class Dayu(object):
             # 文章评论信息存储
             try:
                 comment_test_url = 'xxx'
-                resp = requests.post(comment_test_url, data=items)
+                requests.post(comment_test_url, data=items)
                 comment_product_url = 'xxx'
-                resp2 = requests.post(comment_product_url, data=items)
+                requests.post(comment_product_url, data=items)
             except Exception as e:
                 print('insert db wrong!!!!', e)
 
